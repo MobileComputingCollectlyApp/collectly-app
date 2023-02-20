@@ -28,13 +28,6 @@ class AppRoutes {
             })),
         GetPage(page: () => const LoginScreen(), name: LoginScreen.routeName),
         GetPage(
-            page: () => const ProfileScreen(),
-            name: ProfileScreen.routeName,
-            binding: BindingsBuilder(() {
-              Get.put(QuizPaperController());
-              Get.put(ProfileController());
-            })),
-        GetPage(
             page: () => LeaderBoardScreen(),
             name: LeaderBoardScreen.routeName,
             binding: BindingsBuilder(() {
