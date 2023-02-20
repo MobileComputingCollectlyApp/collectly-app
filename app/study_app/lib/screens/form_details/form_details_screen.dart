@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:collectly/configs/configs.dart';
 import 'package:collectly/controllers/controllers.dart';
 import 'package:collectly/widgets/widgets.dart';
 
-import 'custom_drawer.dart';
+import '../home/custom_drawer.dart';
 
 class FormDetailsScreen extends GetView<MyDrawerController> {
   const FormDetailsScreen({Key? key}) : super(key: key);

@@ -6,7 +6,7 @@ import 'package:collectly/configs/configs.dart';
 import 'package:collectly/controllers/controllers.dart';
 import 'package:collectly/widgets/widgets.dart';
 
-import 'custom_drawer.dart';
+import '../home/custom_drawer.dart';
 
 class FormScreen extends GetView<MyDrawerController> {
   const FormScreen({Key? key}) : super(key: key);
@@ -18,28 +18,27 @@ class FormScreen extends GetView<MyDrawerController> {
     FormDetailsController _formDetailsContoller = Get.find();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return Container(
-                    child: Dialog(
-                      child: Column(children: [
-                        Text("form name"),
-                        TextField(
-                          decoration: InputDecoration(),
-                        ),
-                        ElevatedButton(onPressed: () {}, child: Text("Create"))
-                      ]),
-                    ),
+                  return Dialog(
+                    child: Column(children: [
+                      const Text("form name"),
+                      const TextField(
+                        decoration: InputDecoration(),
+                      ),
+                      ElevatedButton(
+                          onPressed: () {}, child: const Text("Create"))
+                    ]),
                   );
                 });
           },
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: 1,
-          items: [
+          items: const [
             BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add member"),
             BottomNavigationBarItem(icon: Icon(Icons.update), label: "Update"),
             BottomNavigationBarItem(icon: Icon(Icons.delete), label: "Delete")
