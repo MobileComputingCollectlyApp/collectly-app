@@ -47,29 +47,31 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD7tQXD6Otj-KLWC4tToeva-WNeZLk3PBE',
-    appId: '1:1001594824531:web:667d68fb57d5d6fb9ea3a6',
-    messagingSenderId: '1001594824531',
-    projectId: 'quiz-app-30dc1',
-    authDomain: 'quiz-app-30dc1.firebaseapp.com',
-    storageBucket: 'quiz-app-30dc1.appspot.com',
+    apiKey: 'AIzaSyAl_9-KidqLpJ5LRMmBxHkWC14g-rraaQA',
+    appId: '1:882693671474:web:1f8c283fcefac2af9c8a2b',
+    messagingSenderId: '882693671474',
+    projectId: 'collectly-6469a',
+    authDomain: 'collectly-6469a.firebaseapp.com',
+    storageBucket: 'collectly-6469a.appspot.com',
+    measurementId: 'G-6BSZN4CF13',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDYDD2RU4WnKM_dzxFn6AYArY--Le5P7rI',
-    appId: '1:1001594824531:android:7ca6c8d1c6e462e99ea3a6',
-    messagingSenderId: '1001594824531',
-    projectId: 'quiz-app-30dc1',
-    storageBucket: 'quiz-app-30dc1.appspot.com',
+    apiKey: 'AIzaSyC4zUzQnjJr_6RF2PK-YTw5Md__COGSzWo',
+    appId: '1:882693671474:android:7cd1cdc705f9aa7f9c8a2b',
+    messagingSenderId: '882693671474',
+    projectId: 'collectly-6469a',
+    storageBucket: 'collectly-6469a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAi3dRoj1C731jGxcB3eBWRAPt4iueFgEc',
-    appId: '1:1001594824531:ios:96f2ca79abc5d7969ea3a6',
-    messagingSenderId: '1001594824531',
-    projectId: 'quiz-app-30dc1',
-    storageBucket: 'quiz-app-30dc1.appspot.com',
-    iosClientId: '1001594824531-5rce4eh02ll7ldigat6jlef44k8cogvc.apps.googleusercontent.com',
-    iosBundleId: 'com.codefox.quizzle',
+    apiKey: 'AIzaSyAstxCtMqcM8noQB_diYdfHZHr3nxhBfK4',
+    appId: '1:882693671474:ios:36f54041d91604f39c8a2b',
+    messagingSenderId: '882693671474',
+    projectId: 'collectly-6469a',
+    storageBucket: 'collectly-6469a.appspot.com',
+    iosClientId:
+        '882693671474-nvn0t78dsc8evagq21blrv2b51eicpms.apps.googleusercontent.com',
+    iosBundleId: 'com.example.collectlyApp',
   );
 }

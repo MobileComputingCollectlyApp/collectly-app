@@ -1,40 +1,48 @@
 {
   "project_info": {
-    "project_number": "1001594824531",
-    "project_id": "quiz-app-30dc1",
-    "storage_bucket": "quiz-app-30dc1.appspot.com"
+    "project_number": "882693671474",
+    "project_id": "collectly-6469a",
+    "storage_bucket": "collectly-6469a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1001594824531:android:7ca6c8d1c6e462e99ea3a6",
+        "mobilesdk_app_id": "1:882693671474:android:7cd1cdc705f9aa7f9c8a2b",
         "android_client_info": {
-          "package_name": "com.example.quizzledemo"
+          "package_name": "com.example.collectly_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1001594824531-ii5ovcvg7ni01hg2ejacmvpvcfvcomif.apps.googleusercontent.com",
+          "client_id": "882693671474-t61n2daj6n5svcn1pj8pqcotjicfdmlm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.collectly_app",
+            "certificate_hash": "71561445adf534c9ba03d662f62b27fd7615631c"
+          }
+        },
+        {
+          "client_id": "882693671474-aps4jee3rk5hmqm8hosefnuatk7fskga.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDYDD2RU4WnKM_dzxFn6AYArY--Le5P7rI"
+          "current_key": "AIzaSyC4zUzQnjJr_6RF2PK-YTw5Md__COGSzWo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1001594824531-ii5ovcvg7ni01hg2ejacmvpvcfvcomif.apps.googleusercontent.com",
+              "client_id": "882693671474-1olq6j53ouvh0qlruf6c839auo782a6o.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1001594824531-bn0jqjgdjl8fr4d5fhl33p8blg541spo.apps.googleusercontent.com",
+              "client_id": "882693671474-nvn0t78dsc8evagq21blrv2b51eicpms.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.quizTest"
+                "bundle_id": "com.example.collectlyApp"
               }
             }
           ]

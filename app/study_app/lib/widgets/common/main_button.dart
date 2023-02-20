@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:collectly/configs/configs.dart';
 import 'package:get/get.dart';
 
+// Custom created button (Used in google sign in)
 class MainButton extends StatelessWidget {
   const MainButton({
     Key? key,

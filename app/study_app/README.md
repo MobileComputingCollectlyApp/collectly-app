@@ -1,4 +1,4 @@
-# quizzle
+# Collectly App
 
 A new Flutter project.
 

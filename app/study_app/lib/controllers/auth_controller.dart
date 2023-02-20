@@ -18,6 +18,7 @@ class AuthController extends GetxController {
   final _user = Rxn<User>();
   late Stream<User?> _authStateChanges;
 
+  // Check whether the user is authenticated or not
   void initAuth() async {
     await Future.delayed(const Duration(seconds: 2)); // waiting in splash
     _auth = FirebaseAuth.instance;
@@ -28,6 +29,7 @@ class AuthController extends GetxController {
     navigateToIntroduction();
   }
 
+  // Initiate the sign in process with google
   Future<void> siginInWithGoogle() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -36,8 +38,9 @@ class AuthController extends GetxController {
       if (account != null) {
         final _gAuthentication = await account.authentication;
         final _credential = GoogleAuthProvider.credential(
-            idToken: _gAuthentication.idToken,
-            accessToken: _gAuthentication.accessToken);
+          idToken: _gAuthentication.idToken,
+          accessToken: _gAuthentication.accessToken,
+        );
         await _auth.signInWithCredential(_credential);
         await saveUser(account);
         navigateToHome();
@@ -47,6 +50,7 @@ class AuthController extends GetxController {
     }
   }
 
+  // Sign out from the application
   Future<void> signOut() async {
     AppLogger.d("Sign out");
     try {
@@ -57,19 +61,20 @@ class AuthController extends GetxController {
     }
   }
 
+  // Save the user after google signin to the system
   Future<void> saveUser(GoogleSignInAccount account) async {
-    userFR.doc(account.email).set({
-      "email": account.email,
-      "name": account.displayName,
-      "profilepic": account.photoUrl
-    });
+    userFR
+        .doc(account.email)
+        .set({"email": account.email, "name": account.displayName});
   }
 
+  // Get the current user details
   User? getUser() {
     _user.value = _auth.currentUser;
     return _user.value;
   }
 
+  // Check the login status of the user
   bool isLogedIn() {
     return _auth.currentUser != null;
   }
