@@ -1,11 +1,11 @@
-import 'package:easy_separator/easy_separator.dart';
+import 'package:collectly/controllers/auth_controller.dart';
+import 'package:collectly/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collectly/configs/themes/app_colors.dart';
-import 'package:collectly/screens/home/home_screen.dart';
 import 'package:collectly/widgets/common/circle_button.dart';
 
-class AppIntroductionScreen extends StatelessWidget {
+class AppIntroductionScreen extends GetView<AuthController> {
   const AppIntroductionScreen({Key? key}) : super(key: key);
   static const String routeName = '/introduction';
   @override
@@ -24,7 +24,7 @@ class AppIntroductionScreen extends StatelessWidget {
                 size: 65,
                 color: kOnSurfaceTextColor,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               const Text(
@@ -35,11 +35,16 @@ class AppIntroductionScreen extends StatelessWidget {
                     color: kOnSurfaceTextColor,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               CircularButton(
-                  onTap: () => Get.offAndToNamed(HomeScreen.routeName),
+                  onTap: () => {
+                        if (controller.isLogedIn())
+                          controller.navigateToHome()
+                        else
+                          Get.offAndToNamed(LoginScreen.routeName)
+                      },
                   child: const Icon(
                     Icons.arrow_forward,
                     size: 35,
