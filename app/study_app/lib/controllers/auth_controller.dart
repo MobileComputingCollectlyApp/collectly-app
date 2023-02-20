@@ -55,17 +55,19 @@ class AuthController extends GetxController {
     AppLogger.d("Sign out");
     try {
       await _auth.signOut();
-      navigateToHome();
+      navigateToIntroduction();
     } on FirebaseAuthException catch (e) {
       AppLogger.e(e);
     }
   }
 
-  // Save the user after google signin to the system
+  // Save the user after google to the system
   Future<void> saveUser(GoogleSignInAccount account) async {
-    userFR
-        .doc(account.email)
-        .set({"email": account.email, "name": account.displayName});
+    userFR.doc(account.email).set({
+      "email": account.email,
+      "name": account.displayName,
+      "profilepic": account.photoUrl,
+    });
   }
 
   // Get the current user details
