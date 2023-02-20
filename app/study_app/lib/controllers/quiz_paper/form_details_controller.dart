@@ -4,11 +4,11 @@ import 'package:collectly/controllers/auth_controller.dart';
 import 'package:collectly/firebase/references.dart';
 import 'package:collectly/models/models.dart' show QuizPaperModel;
 import 'package:collectly/screens/screens.dart' show QuizeScreen;
-import 'package:collectly/screens/screens.dart' show FormScreen;
+import 'package:collectly/screens/screens.dart' show FormDetailsScreen;
 import 'package:collectly/services/firebase/firebasestorage_service.dart';
 import 'package:collectly/utils/logger.dart';
 
-class QuizPaperController extends GetxController {
+class FormDetailsController extends GetxController {
   @override
   void onReady() {
     getAllPapers();
@@ -49,7 +49,7 @@ class QuizPaperController extends GetxController {
         Get.toNamed(QuizeScreen.routeName, arguments: paper);
       }
     } else {
-      Get.toNamed(FormScreen.routeName, arguments: paper);
+      Get.toNamed(FormDetailsScreen.routeName, arguments: paper);
       //_authController.showLoginAlertDialog();
     }
   }

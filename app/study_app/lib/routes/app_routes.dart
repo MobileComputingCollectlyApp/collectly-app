@@ -23,7 +23,14 @@ class AppRoutes {
             page: () => const FormScreen(),
             name: FormScreen.routeName,
             binding: BindingsBuilder(() {
-              Get.put(QuizPaperController());
+              Get.put(FormDetailsController());
+              Get.put(MyDrawerController());
+            })),
+        GetPage(
+            page: () => const FormDetailsScreen(),
+            name: FormDetailsScreen.routeName,
+            binding: BindingsBuilder(() {
+              Get.put(FormDetailsController());
               Get.put(MyDrawerController());
             })),
         GetPage(page: () => const LoginScreen(), name: LoginScreen.routeName),

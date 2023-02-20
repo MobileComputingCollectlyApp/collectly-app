@@ -6,6 +6,7 @@ export 'common/custom_app_bar.dart';
 export 'common/icon_with_text.dart';
 
 export 'home/quiz_paper_card.dart';
+export 'home/form_card.dart';
 
 export 'quiz/countdown_timer.dart';
 export 'quiz/answer_card.dart';
@@ -17,6 +18,3 @@ export 'loading_shimmers/quiz_screen_placeholder.dart';
 export 'loading_shimmers/leaderboard_placeholder.dart';
 
 export 'dialogs/dialogs.dart';
-
-
-

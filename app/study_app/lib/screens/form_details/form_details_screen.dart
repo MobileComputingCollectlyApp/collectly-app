@@ -8,40 +8,23 @@ import 'package:collectly/widgets/widgets.dart';
 
 import 'custom_drawer.dart';
 
-class FormScreen extends GetView<MyDrawerController> {
-  const FormScreen({Key? key}) : super(key: key);
+class FormDetailsScreen extends GetView<MyDrawerController> {
+  const FormDetailsScreen({Key? key}) : super(key: key);
 
-  static const String routeName = '/forms';
+  static const String routeName = '/form_details';
 
   @override
   Widget build(BuildContext context) {
-    FormDetailsController _formDetailsContoller = Get.find();
+    QuizPaperController _quizePprContoller = Get.find();
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return Container(
-                    child: Dialog(
-                      child: Column(children: [
-                        Text("form name"),
-                        TextField(
-                          decoration: InputDecoration(),
-                        ),
-                        ElevatedButton(onPressed: () {}, child: Text("Create"))
-                      ]),
-                    ),
-                  );
-                });
-          },
-        ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 1,
+          currentIndex: 3,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add member"),
-            BottomNavigationBarItem(icon: Icon(Icons.update), label: "Update"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings), label: "Settings"),
+            BottomNavigationBarItem(icon: Icon(Icons.share), label: "Share"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.download), label: "Download"),
             BottomNavigationBarItem(icon: Icon(Icons.delete), label: "Delete")
           ],
         ),
@@ -95,7 +78,7 @@ class FormScreen extends GetView<MyDrawerController> {
                               ],
                             ),
                           ),
-                          const Text('FORMS', style: kHeaderTS),
+                          const Text('DETAILS', style: kHeaderTS),
                           const SizedBox(height: 15),
                         ],
                       ),
@@ -103,40 +86,6 @@ class FormScreen extends GetView<MyDrawerController> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ContentArea(
-                          addPadding: false,
-                          child: Obx(
-                            () => LiquidPullToRefresh(
-                              height: 150,
-                              springAnimationDurationInMilliseconds: 500,
-                              //backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.5),
-                              onRefresh: () async {
-                                _formDetailsContoller.getAllPapers();
-                              },
-                              child: ListView.separated(
-                                padding: UIParameters.screenPadding,
-                                shrinkWrap: true,
-                                itemCount:
-                                    _formDetailsContoller.allPapers.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return FormCard(
-                                    model:
-                                        _formDetailsContoller.allPapers[index],
-                                  );
-                                },
-                                separatorBuilder:
-                                    (BuildContext context, int index) {
-                                  return const SizedBox(
-                                    height: 20,
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     )
                   ],
