@@ -1,4 +1,4 @@
-package com.example.collectlyApp
+package com.example.collectly_app
 
 import io.flutter.embedding.android.FlutterActivity
 
