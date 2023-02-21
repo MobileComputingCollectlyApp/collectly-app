@@ -3,7 +3,7 @@ export 'onboarding/app_indroduction_screen.dart';
 export 'auth_and_profile/login_screen.dart';
 export 'home/home_screen.dart';
 export 'form/form_list_screen.dart';
-export 'form_details/form_details_screen.dart';
+export 'form/form_details_screen.dart';
 export 'home/custom_drawer.dart';
 export 'leaderboard/leaderboard_screen.dart';
 export 'quiz/quiz_screen.dart';

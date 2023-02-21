@@ -62,13 +62,13 @@ class FormController extends GetxController {
     if (_authController.isLogedIn()) {
       if (isTryAgain) {
         Get.back();
-        Get.offNamed(FormScreen.routeName,
+        Get.offNamed(FormDetailsScreen.routeName,
             arguments: form, preventDuplicates: false);
       } else {
-        Get.toNamed(FormScreen.routeName, arguments: form);
+        Get.toNamed(FormDetailsScreen.routeName, arguments: form);
       }
     } else {
-      Get.toNamed(FormScreen.routeName, arguments: form);
+      Get.toNamed(FormDetailsScreen.routeName, arguments: form);
       _authController.showLoginAlertDialog();
     }
   }

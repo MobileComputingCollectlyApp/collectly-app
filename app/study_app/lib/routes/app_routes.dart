@@ -1,4 +1,5 @@
 import 'package:collectly/controllers/project_form/form_controller.dart';
+import 'package:collectly/controllers/project_form/form_data_controller.dart';
 import 'package:collectly/controllers/project_form/project_controller.dart';
 import 'package:collectly/controllers/project_form/shared_project_controller.dart';
 import 'package:collectly/screens/home/shared_project_screen.dart';
@@ -43,7 +44,7 @@ class AppRoutes {
             page: () => const FormDetailsScreen(),
             name: FormDetailsScreen.routeName,
             binding: BindingsBuilder(() {
-              Get.put(FormDetailsController());
+              Get.put(FormDataController());
               Get.put(MyDrawerController());
             })),
         GetPage(page: () => const LoginScreen(), name: LoginScreen.routeName),
