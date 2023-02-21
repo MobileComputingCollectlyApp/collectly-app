@@ -1,7 +1,5 @@
-import 'package:collectly/controllers/project_form/form_controller.dart';
-import 'package:collectly/widgets/project/add_member_form.dart';
-import 'package:collectly/widgets/project/delete_project.dart';
-import 'package:collectly/widgets/project/update_project.dart';
+import 'package:collectly/controllers/project_form/shared_project_controller.dart';
+import 'package:collectly/widgets/home/project_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
@@ -10,74 +8,27 @@ import 'package:collectly/configs/configs.dart';
 import 'package:collectly/controllers/controllers.dart';
 import 'package:collectly/widgets/widgets.dart';
 
-import '../home/custom_drawer.dart';
+import 'custom_drawer.dart';
 
-class FormScreen extends GetView<MyDrawerController> {
-  const FormScreen({Key? key}) : super(key: key);
+class SharedProjectScreen extends GetView<MyDrawerController> {
+  const SharedProjectScreen({Key? key}) : super(key: key);
 
-  static const String routeName = '/forms';
+  static const String routeName = '/shared_projects';
 
   @override
   Widget build(BuildContext context) {
-    FormController _formContoller = Get.find();
+    SharedProjectController _projectController = Get.find();
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    child: Column(children: [
-                      const Text("form name"),
-                      const TextField(
-                        decoration: InputDecoration(),
-                      ),
-                      ElevatedButton(
-                          onPressed: () {}, child: const Text("Create"))
-                    ]),
-                  );
-                });
-          },
-        ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: 1,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add member"),
-            BottomNavigationBarItem(icon: Icon(Icons.update), label: "Update"),
-            BottomNavigationBarItem(icon: Icon(Icons.delete), label: "Delete")
+            BottomNavigationBarItem(
+                icon: Icon(Icons.folder), label: "My Projects"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.folder_shared), label: "Shared Projects"),
           ],
           onTap: (index) => {
-            if (index == 0)
-              {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AddMemberDialog(
-                        project: _formContoller.project,
-                      );
-                    })
-              }
-            else if (index == 1)
-              {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return ProjectUpdateDialog(
-                        project: _formContoller.project,
-                      );
-                    })
-              }
-            else if (index == 2)
-              {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return DeleteProjectDialog(
-                        project: _formContoller.project,
-                      );
-                    })
-              }
+            if (index == 0) {_projectController.navigatoMyFolder()}
           },
         ),
         body: GetBuilder<MyDrawerController>(
@@ -130,7 +81,7 @@ class FormScreen extends GetView<MyDrawerController> {
                               ],
                             ),
                           ),
-                          const Text('FORMS', style: kHeaderTS),
+                          const Text('SHARED PROJECTS', style: kHeaderTS),
                           const SizedBox(height: 15),
                         ],
                       ),
@@ -149,15 +100,17 @@ class FormScreen extends GetView<MyDrawerController> {
                                   .primaryColor
                                   .withOpacity(0.5),
                               onRefresh: () async {
-                                _formContoller.getAllForms();
+                                _projectController.getAllProjects();
                               },
                               child: ListView.separated(
                                 padding: UIParameters.screenPadding,
                                 shrinkWrap: true,
-                                itemCount: _formContoller.allForms.length,
+                                itemCount:
+                                    _projectController.allProjects.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return FormCard(
-                                    model: _formContoller.allForms[index],
+                                  return ProjectCard(
+                                    model:
+                                        _projectController.allProjects[index],
                                   );
                                 },
                                 separatorBuilder:

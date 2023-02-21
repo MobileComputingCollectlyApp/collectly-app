@@ -1,17 +1,13 @@
-import 'package:easy_separator/easy_separator.dart';
+import 'package:collectly/controllers/project_form/form_controller.dart';
+import 'package:collectly/models/project_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collectly/configs/configs.dart';
-import 'package:collectly/controllers/controllers.dart';
-import 'package:collectly/controllers/quiz_paper/form_details_controller.dart';
-import 'package:collectly/models/quiz_paper_model.dart';
-import 'package:collectly/screens/screens.dart';
-import 'package:collectly/widgets/widgets.dart';
 
-class FormCard extends GetView<FormDetailsController> {
+class FormCard extends GetView<FormController> {
   const FormCard({Key? key, required this.model}) : super(key: key);
 
-  final QuizPaperModel model;
+  final FormModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +20,7 @@ class FormCard extends GetView<FormDetailsController> {
       child: InkWell(
         borderRadius: UIParameters.cardBorderRadius,
         onTap: () {
-          controller.navigatoQuestions(paper: model);
+          controller.navigatoForm(form: model);
         },
         child: Padding(
             padding: const EdgeInsets.all(_padding),
@@ -43,10 +39,9 @@ class FormCard extends GetView<FormDetailsController> {
                           child: SizedBox(
                             width: 65,
                             height: 65,
-                            child: model.imageUrl == null ||
-                                    model.imageUrl!.isEmpty
-                                ? null
-                                : Image.network(model.imageUrl!),
+                            child: Image.asset(
+                              'assets/images/splash.png',
+                            ),
                           )),
                     ),
                     const SizedBox(
@@ -66,68 +61,10 @@ class FormCard extends GetView<FormDetailsController> {
                           padding: const EdgeInsets.only(top: 10, bottom: 15),
                           child: Text(model.description),
                         ),
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: EasySeparatedRow(
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(width: 15);
-                            },
-                            children: [
-                              IconWithText(
-                                  icon: Icon(Icons.help_outline_sharp,
-                                      color: Get.isDarkMode
-                                          ? Colors.white
-                                          : Theme.of(context).primaryColor),
-                                  text: Text(
-                                    '${model.questionsCount} quizzes',
-                                    style: kDetailsTS.copyWith(
-                                        color: Get.isDarkMode
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor),
-                                  )),
-                              IconWithText(
-                                  icon: Icon(Icons.timer,
-                                      color: Get.isDarkMode
-                                          ? Colors.white
-                                          : Theme.of(context).primaryColor),
-                                  text: Text(
-                                    model.timeInMinits(),
-                                    style: kDetailsTS.copyWith(
-                                        color: Get.isDarkMode
-                                            ? Colors.white
-                                            : Theme.of(context).primaryColor),
-                                  )),
-                            ],
-                          ),
-                        )
                       ],
                     ))
                   ],
                 ),
-                //showing the trophy
-                Positioned(
-                    bottom: -_padding,
-                    right: -_padding,
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        // Get.find<NotificationService>().showQuizCompletedNotification(id: 1, title: 'Sampole', body: 'Sample', imageUrl: model.imageUrl, payload: json.encode(model.toJson())  );
-                        Get.toNamed(LeaderBoardScreen.routeName,
-                            arguments: model);
-                      },
-                      child: Ink(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 20),
-                        child: const Icon(AppIcons.trophyoutline),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(kCardBorderrRadius),
-                                bottomRight:
-                                    Radius.circular(kCardBorderrRadius)),
-                            color: Theme.of(context).primaryColor),
-                      ),
-                    ))
               ],
             )),
       ),

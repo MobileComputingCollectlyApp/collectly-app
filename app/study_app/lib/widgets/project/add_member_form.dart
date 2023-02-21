@@ -1,41 +1,35 @@
 import 'package:collectly/controllers/project_form/project_controller.dart';
+import 'package:collectly/models/project_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MyFormDialog extends GetView<ProjectController> {
-  const MyFormDialog({Key? key}) : super(key: key);
+class AddMemberDialog extends GetView<ProjectController> {
+  const AddMemberDialog({Key? key, required this.project}) : super(key: key);
+
+  final ProjectModel project;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Create Project'),
+      title: const Text('Share Project'),
       content: Form(
         key: controller.formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Project Title'),
+              decoration: const InputDecoration(labelText: 'Email Address'),
               validator: (String? value) {
                 if (value!.isEmpty) {
-                  return 'Please enter a project title';
-                }
-                return null;
-              },
-              onChanged: (String? value) => controller.projectName = value!,
-            ),
-            TextFormField(
-              decoration:
-                  const InputDecoration(labelText: 'Project Description'),
-              validator: (String? value) {
-                if (value!.isEmpty) {
-                  return 'Please enter a project description';
+                  return 'Please enter an email of new member';
+                } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                  return "Please enter a valid email address";
                 }
                 return null;
               },
               onChanged: (String? value) =>
-                  controller.projectDescription = value!,
-            ),
+                  controller.collaborators = value == null ? [] : [value],
+            )
           ],
         ),
       ),
@@ -47,11 +41,11 @@ class MyFormDialog extends GetView<ProjectController> {
           },
         ),
         TextButton(
-          child: const Text('Create'),
+          child: const Text('Share'),
           onPressed: () {
             if (controller.formKey.currentState!.validate()) {
               controller.formKey.currentState!.save();
-              controller.uploadData();
+              controller.addMember(project.id);
               // Process form data here
               Navigator.of(context).pop();
             }

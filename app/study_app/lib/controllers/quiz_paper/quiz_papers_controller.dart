@@ -50,7 +50,7 @@ class QuizPaperController extends GetxController {
       }
     } else {
       Get.toNamed(FormScreen.routeName, arguments: paper);
-      //_authController.showLoginAlertDialog();
+      _authController.showLoginAlertDialog();
     }
   }
 }

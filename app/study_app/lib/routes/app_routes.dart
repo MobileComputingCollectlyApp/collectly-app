@@ -1,3 +1,7 @@
+import 'package:collectly/controllers/project_form/form_controller.dart';
+import 'package:collectly/controllers/project_form/project_controller.dart';
+import 'package:collectly/controllers/project_form/shared_project_controller.dart';
+import 'package:collectly/screens/home/shared_project_screen.dart';
 import 'package:get/get.dart';
 import 'package:collectly/controllers/controllers.dart';
 import 'package:collectly/screens/screens.dart';
@@ -18,12 +22,21 @@ class AppRoutes {
             binding: BindingsBuilder(() {
               Get.put(QuizPaperController());
               Get.put(MyDrawerController());
+              Get.put(ProjectController());
+            })),
+        GetPage(
+            page: () => const SharedProjectScreen(),
+            name: SharedProjectScreen.routeName,
+            binding: BindingsBuilder(() {
+              Get.put(QuizPaperController());
+              Get.put(MyDrawerController());
+              Get.put(SharedProjectController());
             })),
         GetPage(
             page: () => const FormScreen(),
             name: FormScreen.routeName,
             binding: BindingsBuilder(() {
-              Get.put(FormDetailsController());
+              Get.put(FormController());
               Get.put(MyDrawerController());
             })),
         GetPage(

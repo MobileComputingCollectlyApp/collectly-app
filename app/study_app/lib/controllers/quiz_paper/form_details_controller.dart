@@ -50,7 +50,7 @@ class FormDetailsController extends GetxController {
       }
     } else {
       Get.toNamed(FormDetailsScreen.routeName, arguments: paper);
-      //_authController.showLoginAlertDialog();
+      _authController.showLoginAlertDialog();
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'package:collectly/controllers/project_form/project_controller.dart';
+import 'package:collectly/widgets/home/project_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ class HomeScreen extends GetView<MyDrawerController> {
 
   @override
   Widget build(BuildContext context) {
-    QuizPaperController _quizePprContoller = Get.find();
+    ProjectController _projectController = Get.find();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
@@ -23,8 +25,20 @@ class HomeScreen extends GetView<MyDrawerController> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return MyFormDialog();
+                  return const MyFormDialog();
                 });
+          },
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.folder), label: "My Projects"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.folder_shared), label: "Shared Projects"),
+          ],
+          onTap: (index) => {
+            if (index == 1) {_projectController.navigatoSharedFolder()}
           },
         ),
         body: GetBuilder<MyDrawerController>(
@@ -77,7 +91,7 @@ class HomeScreen extends GetView<MyDrawerController> {
                               ],
                             ),
                           ),
-                          const Text('PROJECTS', style: kHeaderTS),
+                          const Text('MY PROJECTS', style: kHeaderTS),
                           const SizedBox(height: 15),
                         ],
                       ),
@@ -96,15 +110,17 @@ class HomeScreen extends GetView<MyDrawerController> {
                                   .primaryColor
                                   .withOpacity(0.5),
                               onRefresh: () async {
-                                _quizePprContoller.getAllPapers();
+                                _projectController.getAllProjects();
                               },
                               child: ListView.separated(
                                 padding: UIParameters.screenPadding,
                                 shrinkWrap: true,
-                                itemCount: _quizePprContoller.allPapers.length,
+                                itemCount:
+                                    _projectController.allProjects.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return QuizPaperCard(
-                                    model: _quizePprContoller.allPapers[index],
+                                  return ProjectCard(
+                                    model:
+                                        _projectController.allProjects[index],
                                   );
                                 },
                                 separatorBuilder:
