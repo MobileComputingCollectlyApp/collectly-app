@@ -23,16 +23,7 @@ class FormScreen extends GetView<MyDrawerController> {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return Dialog(
-                    child: Column(children: [
-                      const Text("form name"),
-                      const TextField(
-                        decoration: InputDecoration(),
-                      ),
-                      ElevatedButton(
-                          onPressed: () {}, child: const Text("Create"))
-                    ]),
-                  );
+                  return MyStepFormDialog();
                 });
           },
         ),
