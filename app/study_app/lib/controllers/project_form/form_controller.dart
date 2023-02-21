@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collectly/controllers/auth_controller.dart';
-import 'package:collectly/firebase/download_status.dart';
 import 'package:collectly/models/project_form_model.dart';
 import 'package:collectly/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collectly/firebase/firebase_configs.dart';
@@ -14,8 +12,13 @@ class FormController extends GetxController {
   final formKey = GlobalKey<FormState>();
   String? formName;
   String? formDescription;
-  bool? isPublic;
-  Map<String, dynamic> structure = {};
+  String? questionText;
+  RxString questionType = 'text'.obs;
+  RxString required = 'yes'.obs;
+  RxString public = 'no'.obs;
+  bool isPublic = false;
+  RxInt currentStep = 0.obs;
+  List<Map<String, dynamic>> structure = [{}];
   final AuthController _auth = Get.find();
   late User? user;
   late ProjectModel project;
@@ -68,21 +71,24 @@ class FormController extends GetxController {
 
   // Upload form creation data to firestore
   uploadData() async {
-    const uuid = Uuid();
-    String formID = uuid.v4();
+    // const uuid = Uuid();
+    // String formID = uuid.v4();
 
-    try {
-      await projectFormFR.doc(project.id).collection('forms').doc(formID).set({
-        "id": formID,
-        "title": formName,
-        "description": formDescription,
-        "isPublic": isPublic,
-        "downloadable": DownloadStatus.notAvailable,
-        "structure": structure,
-        "answers": [],
-      });
-    } on Exception catch (e) {
-      AppLogger.e(e);
-    }
+    // try {
+    //   await projectFormFR.doc(project.id).collection('forms').doc(formID).set({
+    //     "id": formID,
+    //     "title": formName,
+    //     "description": formDescription,
+    //     "isPublic": isPublic,
+    //     "downloadable": DownloadStatus.notAvailable,
+    //     "structure": structure,
+    //     "answers": [],
+    //   });
+    // } on Exception catch (e) {
+    //   AppLogger.e(e);
+    // }
+    print(formName);
+    print(formDescription);
+    print(structure);
   }
 }
