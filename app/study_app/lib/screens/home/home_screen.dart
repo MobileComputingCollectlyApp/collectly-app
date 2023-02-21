@@ -18,22 +18,12 @@ class HomeScreen extends GetView<MyDrawerController> {
     QuizPaperController _quizePprContoller = Get.find();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return Container(
-                    child: Dialog(
-                      child: Column(children: [
-                        Text("Project name"),
-                        TextField(
-                          decoration: InputDecoration(),
-                        ),
-                        ElevatedButton(onPressed: () {}, child: Text("Create"))
-                      ]),
-                    ),
-                  );
+                  return MyFormDialog();
                 });
           },
         ),
