@@ -6,7 +6,7 @@ class ProjectModel {
   final String id;
   final String title;
   final String description;
-  List<Form>? forms;
+  List<FormModel>? forms;
   final int formsCount;
   final String owner;
   final List<String> collaborators;
@@ -32,7 +32,8 @@ class ProjectModel {
         forms = json['forms'] == null
             ? []
             : (json['forms'] as List)
-                .map((dynamic e) => Form.fromJson(e as Map<String, dynamic>))
+                .map((dynamic e) =>
+                    FormModel.fromJson(e as Map<String, dynamic>))
                 .toList(),
         owner = json['owner'],
         collaborators = json['collaborators'] == null
@@ -58,7 +59,7 @@ class ProjectModel {
 }
 
 // Form models inside the project
-class Form {
+class FormModel {
   final String id;
   final String title;
   final String description;
@@ -67,7 +68,7 @@ class Form {
   final Map<String, dynamic> structure;
   List<Answer> answers;
 
-  Form({
+  FormModel({
     required this.id,
     required this.title,
     required this.description,
@@ -77,7 +78,7 @@ class Form {
     required this.answers,
   });
 
-  Form.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
+  FormModel.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : id = snapshot.id,
         title = snapshot['title'],
         description = snapshot['description'],
@@ -86,7 +87,7 @@ class Form {
         structure = snapshot['structure'],
         answers = [];
 
-  Form.fromJson(Map<String, dynamic> json)
+  FormModel.fromJson(Map<String, dynamic> json)
       : id = json['id'] as String,
         title = json['title'] as String,
         description = json['description'] as String,

@@ -22,7 +22,7 @@ class ProjectCard extends GetView<ProjectController> {
       child: InkWell(
         borderRadius: UIParameters.cardBorderRadius,
         onTap: () {
-          controller.navigatoQuestions(project: model);
+          controller.navigatoForms(project: model);
         },
         child: Padding(
             padding: const EdgeInsets.all(_padding),

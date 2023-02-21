@@ -40,17 +40,17 @@ class SharedProjectController extends GetxController {
     }
   }
 
-  void navigatoQuestions(
-      {required ProjectModel project, bool isTryAgain = false}) {
+  // Navigate to the form section of the project
+  void navigatoForms({required ProjectModel project, bool isTryAgain = false}) {
     AuthController _authController = Get.find();
 
     if (_authController.isLogedIn()) {
       if (isTryAgain) {
         Get.back();
-        Get.offNamed(QuizeScreen.routeName,
+        Get.offNamed(FormScreen.routeName,
             arguments: project, preventDuplicates: false);
       } else {
-        Get.toNamed(QuizeScreen.routeName, arguments: project);
+        Get.toNamed(FormScreen.routeName, arguments: project);
       }
     } else {
       Get.toNamed(FormScreen.routeName, arguments: project);

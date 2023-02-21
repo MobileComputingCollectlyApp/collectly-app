@@ -14,6 +14,7 @@ class ProjectController extends GetxController {
   final formKey = GlobalKey<FormState>();
   String? projectName;
   String? projectDescription;
+  List<String> collaborators = [];
   final AuthController _auth = Get.find();
   late User? user;
 
@@ -45,17 +46,17 @@ class ProjectController extends GetxController {
     }
   }
 
-  void navigatoQuestions(
-      {required ProjectModel project, bool isTryAgain = false}) {
+  // Navigate to the form section of the project
+  void navigatoForms({required ProjectModel project, bool isTryAgain = false}) {
     AuthController _authController = Get.find();
 
     if (_authController.isLogedIn()) {
       if (isTryAgain) {
         Get.back();
-        Get.offNamed(QuizeScreen.routeName,
+        Get.offNamed(FormScreen.routeName,
             arguments: project, preventDuplicates: false);
       } else {
-        Get.toNamed(QuizeScreen.routeName, arguments: project);
+        Get.toNamed(FormScreen.routeName, arguments: project);
       }
     } else {
       Get.toNamed(FormScreen.routeName, arguments: project);
@@ -86,6 +87,49 @@ class ProjectController extends GetxController {
         "owner": user?.email,
         "collaborators": [],
       });
+      _auth.navigateToHome();
+    } on Exception catch (e) {
+      AppLogger.e(e);
+    }
+  }
+
+  // Update project data in firestore
+  updateData(String id) async {
+    try {
+      Map<String, String> temp = {};
+      if (projectName != null || projectDescription != null) {
+        if (projectName != null) {
+          temp['title'] = projectName!;
+        }
+        if (projectDescription != null) {
+          temp['description'] = projectDescription!;
+        }
+      } else {
+        return;
+      }
+      await projectFormFR.doc(id).set(temp, SetOptions(merge: true));
+      _auth.navigateToHome();
+    } on Exception catch (e) {
+      AppLogger.e(e);
+    }
+  }
+
+  // Share project with other members
+  addMember(String id) async {
+    try {
+      await projectFormFR
+          .doc(id)
+          .update({"collaborators": FieldValue.arrayUnion(collaborators)});
+    } on Exception catch (e) {
+      AppLogger.e(e);
+    }
+  }
+
+  // Delete Project
+  deleteProject(String id) async {
+    try {
+      await projectFormFR.doc(id).delete();
+      _auth.navigateToHome();
     } on Exception catch (e) {
       AppLogger.e(e);
     }

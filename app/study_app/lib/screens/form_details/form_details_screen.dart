@@ -18,7 +18,7 @@ class FormDetailsScreen extends GetView<MyDrawerController> {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: 3,
-          items: [
+          items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Settings"),
             BottomNavigationBarItem(icon: Icon(Icons.share), label: "Share"),

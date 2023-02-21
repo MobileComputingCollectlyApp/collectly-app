@@ -1,3 +1,7 @@
+import 'package:collectly/controllers/project_form/form_controller.dart';
+import 'package:collectly/widgets/project/add_member_form.dart';
+import 'package:collectly/widgets/project/delete_project.dart';
+import 'package:collectly/widgets/project/update_project.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
@@ -15,7 +19,7 @@ class FormScreen extends GetView<MyDrawerController> {
 
   @override
   Widget build(BuildContext context) {
-    FormDetailsController _formDetailsContoller = Get.find();
+    FormController _formContoller = Get.find();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
@@ -43,6 +47,38 @@ class FormScreen extends GetView<MyDrawerController> {
             BottomNavigationBarItem(icon: Icon(Icons.update), label: "Update"),
             BottomNavigationBarItem(icon: Icon(Icons.delete), label: "Delete")
           ],
+          onTap: (index) => {
+            if (index == 0)
+              {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AddMemberDialog(
+                        project: _formContoller.project,
+                      );
+                    })
+              }
+            else if (index == 1)
+              {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return ProjectUpdateDialog(
+                        project: _formContoller.project,
+                      );
+                    })
+              }
+            else if (index == 2)
+              {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return DeleteProjectDialog(
+                        project: _formContoller.project,
+                      );
+                    })
+              }
+          },
         ),
         body: GetBuilder<MyDrawerController>(
           builder: (_) => ZoomDrawer(
@@ -113,17 +149,15 @@ class FormScreen extends GetView<MyDrawerController> {
                                   .primaryColor
                                   .withOpacity(0.5),
                               onRefresh: () async {
-                                _formDetailsContoller.getAllPapers();
+                                _formContoller.getAllForms();
                               },
                               child: ListView.separated(
                                 padding: UIParameters.screenPadding,
                                 shrinkWrap: true,
-                                itemCount:
-                                    _formDetailsContoller.allPapers.length,
+                                itemCount: _formContoller.allForms.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return FormCard(
-                                    model:
-                                        _formDetailsContoller.allPapers[index],
+                                    model: _formContoller.allForms[index],
                                   );
                                 },
                                 separatorBuilder:
