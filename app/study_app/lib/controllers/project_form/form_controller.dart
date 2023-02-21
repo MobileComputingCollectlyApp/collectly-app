@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collectly/firebase/firebase_configs.dart';
 import 'package:collectly/utils/logger.dart';
+import 'package:uuid/uuid.dart';
 
 class FormController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -19,9 +20,12 @@ class FormController extends GetxController {
   bool isPublic = false;
   RxInt currentStep = 0.obs;
   List<Map<String, dynamic>> structure = [{}];
+  RxList choices = [].obs;
+  String? choice;
   final AuthController _auth = Get.find();
   late User? user;
   late ProjectModel project;
+  TextEditingController ctrl = TextEditingController();
 
   @override
   void onReady() {
@@ -71,24 +75,32 @@ class FormController extends GetxController {
 
   // Upload form creation data to firestore
   uploadData() async {
-    // const uuid = Uuid();
-    // String formID = uuid.v4();
+    const uuid = Uuid();
+    String formID = uuid.v4();
 
-    // try {
-    //   await projectFormFR.doc(project.id).collection('forms').doc(formID).set({
-    //     "id": formID,
-    //     "title": formName,
-    //     "description": formDescription,
-    //     "isPublic": isPublic,
-    //     "downloadable": DownloadStatus.notAvailable,
-    //     "structure": structure,
-    //     "answers": [],
-    //   });
-    // } on Exception catch (e) {
-    //   AppLogger.e(e);
-    // }
-    print(formName);
-    print(formDescription);
-    print(structure);
+    int count = 0;
+    for (var element in structure) {
+      element['id'] = count;
+      if (element['type'] == null) {
+        element['type'] = 'text';
+      }
+      if (element['required'] == null) {
+        element['required'] = 'yes';
+      }
+      count++;
+    }
+
+    try {
+      await projectFormFR.doc(project.id).collection('forms').doc(formID).set({
+        "id": formID,
+        "title": formName,
+        "description": formDescription,
+        "isPublic": isPublic,
+        "downloadable": 'notAvailable',
+        "structure": structure
+      });
+    } on Exception catch (e) {
+      AppLogger.e(e);
+    }
   }
 }

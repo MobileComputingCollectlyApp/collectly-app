@@ -10,6 +10,7 @@ class MyStepFormDialog extends GetView<FormController> {
     return Obx(
       () => AlertDialog(
         title: const Text('Create Form'),
+        scrollable: true,
         content: Form(
           key: controller.formKey,
           child: Column(
@@ -187,6 +188,49 @@ class MyStepFormDialog extends GetView<FormController> {
                     ],
                   ),
                 ),
+              if (controller.currentStep.toInt() > 0 &&
+                  (controller.questionType.value == 'selection' ||
+                      controller.questionType.value == 'radio'))
+                const SizedBox(
+                  height: 20,
+                ),
+              if (controller.currentStep.toInt() > 0 &&
+                  (controller.questionType.value == 'selection' ||
+                      controller.questionType.value == 'radio'))
+                Column(
+                  children: controller.choices
+                      .map((element) => Text(element))
+                      .toList(),
+                ),
+              if (controller.currentStep.toInt() > 0 &&
+                  (controller.questionType.value == 'selection' ||
+                      controller.questionType.value == 'radio'))
+                TextFormField(
+                  controller: controller.ctrl,
+                  decoration:
+                      const InputDecoration(labelText: 'Multiple Choices'),
+                  onChanged: (String? value) => controller.choice = value!,
+                ),
+              if (controller.currentStep.toInt() > 0 &&
+                  (controller.questionType.value == 'selection' ||
+                      controller.questionType.value == 'radio'))
+                TextButton(
+                  child: const Text('Add Choice'),
+                  onPressed: () {
+                    controller.ctrl.clear();
+                    if (controller.choice!.isEmpty) {
+                      return;
+                    }
+                    if (controller.choices.isEmpty) {
+                      controller.structure[controller.currentStep.value]
+                          ['choices'] = [];
+                    }
+                    controller.choices.add(controller.choice);
+                    controller.structure[controller.currentStep.value]
+                            ['choices']
+                        .add(controller.choice);
+                  },
+                ),
             ],
           ),
         ),
@@ -196,6 +240,7 @@ class MyStepFormDialog extends GetView<FormController> {
             onPressed: () {
               controller.formKey.currentState!.reset();
               controller.structure = [{}];
+              controller.choices.value = [];
               controller.currentStep.value = 0;
               controller.required.value = 'yes';
               controller.public.value = 'no';
@@ -212,6 +257,7 @@ class MyStepFormDialog extends GetView<FormController> {
                 controller.required.value = 'yes';
                 controller.questionType.value = 'text';
                 controller.structure.add({});
+                controller.choices.value = [];
               }
             },
           ),
@@ -224,6 +270,7 @@ class MyStepFormDialog extends GetView<FormController> {
                   // Process form data here
                   controller.formKey.currentState!.reset();
                   controller.structure = [{}];
+                  controller.choices.value = [];
                   controller.currentStep.value = 0;
                   controller.required.value = 'yes';
                   controller.public.value = 'no';
