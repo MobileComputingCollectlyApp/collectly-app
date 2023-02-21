@@ -1,3 +1,4 @@
+import 'package:collectly/controllers/project_form/project_controller.dart';
 import 'package:get/get.dart';
 import 'package:collectly/controllers/controllers.dart';
 import 'package:collectly/screens/screens.dart';
@@ -18,6 +19,7 @@ class AppRoutes {
             binding: BindingsBuilder(() {
               Get.put(QuizPaperController());
               Get.put(MyDrawerController());
+              Get.put(ProjectController());
             })),
         GetPage(
             page: () => const FormScreen(),

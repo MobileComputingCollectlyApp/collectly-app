@@ -1,24 +1,16 @@
+import 'package:collectly/controllers/project_form/project_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class MyFormDialog extends StatefulWidget {
+class MyFormDialog extends GetView<ProjectController> {
   const MyFormDialog({Key? key}) : super(key: key);
-
-  @override
-  _MyFormDialogState createState() => _MyFormDialogState();
-}
-
-class _MyFormDialogState extends State<MyFormDialog> {
-  // Define form fields here
-  final _formKey = GlobalKey<FormState>();
-  String? _projectName;
-  String? _projectDescription;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Create Project'),
       content: Form(
-        key: _formKey,
+        key: controller.formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -30,7 +22,7 @@ class _MyFormDialogState extends State<MyFormDialog> {
                 }
                 return null;
               },
-              onChanged: (String? value) => _projectName = value!,
+              onChanged: (String? value) => controller.projectName = value!,
             ),
             TextFormField(
               decoration:
@@ -41,7 +33,8 @@ class _MyFormDialogState extends State<MyFormDialog> {
                 }
                 return null;
               },
-              onChanged: (String? value) => _projectDescription = value!,
+              onChanged: (String? value) =>
+                  controller.projectDescription = value!,
             ),
           ],
         ),
@@ -58,10 +51,10 @@ class _MyFormDialogState extends State<MyFormDialog> {
           onPressed: () {
             debugPrint(
                 "-------------------------------------------------------------output");
-            debugPrint(_projectName);
-            debugPrint(_projectDescription);
-            if (_formKey.currentState!.validate()) {
-              _formKey.currentState!.save();
+            debugPrint(controller.projectName);
+            debugPrint(controller.projectDescription);
+            if (controller.formKey.currentState!.validate()) {
+              controller.formKey.currentState!.save();
               // Process form data here
               Navigator.of(context).pop();
             }
