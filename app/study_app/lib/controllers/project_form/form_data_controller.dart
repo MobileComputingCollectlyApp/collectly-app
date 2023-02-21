@@ -1,24 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collectly/controllers/auth_controller.dart';
 import 'package:collectly/models/project_form_model.dart';
-import 'package:collectly/screens/home/shared_project_screen.dart';
-import 'package:collectly/screens/screens.dart';
+import 'package:collectly/screens/play_form/play_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:collectly/firebase/firebase_configs.dart';
-import 'package:collectly/utils/logger.dart';
 
 class FormDataController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final AuthController _auth = Get.find();
   late User? user;
   late FormModel form;
+  late String projectID;
 
   @override
   void onInit() {
-    form = Get.arguments as FormModel;
+    final temp = Get.arguments;
+    form = temp['form'] as FormModel;
+    projectID = temp['project_id'];
     super.onInit();
   }
 
@@ -31,6 +29,18 @@ class FormDataController extends GetxController {
     }
 
     super.onReady();
+  }
+
+  // Use to navigate to the form play overview page
+  void navigateToFormPlayScreen() {
+    final params = {'form': form, 'project_id': projectID};
+
+    if (_auth.isLogedIn()) {
+      Get.toNamed(PlayFormScreen.routeName, arguments: params);
+    } else {
+      Get.toNamed(PlayFormScreen.routeName, arguments: params);
+      _auth.showLoginAlertDialog();
+    }
   }
 
   // Upload project creation data to firestore

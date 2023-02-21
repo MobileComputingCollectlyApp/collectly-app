@@ -73,6 +73,9 @@ class FormDetailsScreen extends GetView<MyDrawerController> {
                 icon: Icon(Icons.download), label: "Download"),
             BottomNavigationBarItem(icon: Icon(Icons.delete), label: "Delete")
           ],
+          onTap: (index) => {
+            if (index == 2) {_formDataContoller.navigateToFormPlayScreen()}
+          },
         ),
         body: GetBuilder<MyDrawerController>(
           builder: (_) => ZoomDrawer(

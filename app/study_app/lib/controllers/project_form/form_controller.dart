@@ -59,16 +59,18 @@ class FormController extends GetxController {
   void navigatoForm({required FormModel form, bool isTryAgain = false}) {
     AuthController _authController = Get.find();
 
+    final params = {'form': form, 'project_id': project.id};
+
     if (_authController.isLogedIn()) {
       if (isTryAgain) {
         Get.back();
         Get.offNamed(FormDetailsScreen.routeName,
-            arguments: form, preventDuplicates: false);
+            arguments: params, preventDuplicates: false);
       } else {
-        Get.toNamed(FormDetailsScreen.routeName, arguments: form);
+        Get.toNamed(FormDetailsScreen.routeName, arguments: params);
       }
     } else {
-      Get.toNamed(FormDetailsScreen.routeName, arguments: form);
+      Get.toNamed(FormDetailsScreen.routeName, arguments: params);
       _authController.showLoginAlertDialog();
     }
   }
@@ -80,6 +82,10 @@ class FormController extends GetxController {
 
     int count = 0;
     for (var element in structure) {
+      if (count == 0) {
+        count++;
+        continue;
+      }
       element['id'] = count;
       if (element['type'] == null) {
         element['type'] = 'text';
@@ -89,6 +95,7 @@ class FormController extends GetxController {
       }
       count++;
     }
+    structure.removeAt(0);
 
     try {
       await projectFormFR.doc(project.id).collection('forms').doc(formID).set({
