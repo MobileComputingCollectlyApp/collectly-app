@@ -49,12 +49,9 @@ class MyFormDialog extends GetView<ProjectController> {
         TextButton(
           child: const Text('Create'),
           onPressed: () {
-            debugPrint(
-                "-------------------------------------------------------------output");
-            debugPrint(controller.projectName);
-            debugPrint(controller.projectDescription);
             if (controller.formKey.currentState!.validate()) {
               controller.formKey.currentState!.save();
+              controller.uploadData();
               // Process form data here
               Navigator.of(context).pop();
             }

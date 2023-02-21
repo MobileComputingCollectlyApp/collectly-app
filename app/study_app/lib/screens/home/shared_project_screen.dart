@@ -1,4 +1,4 @@
-import 'package:collectly/controllers/project_form/project_controller.dart';
+import 'package:collectly/controllers/project_form/shared_project_controller.dart';
 import 'package:collectly/widgets/home/project_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -10,27 +10,17 @@ import 'package:collectly/widgets/widgets.dart';
 
 import 'custom_drawer.dart';
 
-class HomeScreen extends GetView<MyDrawerController> {
-  const HomeScreen({Key? key}) : super(key: key);
+class SharedProjectScreen extends GetView<MyDrawerController> {
+  const SharedProjectScreen({Key? key}) : super(key: key);
 
-  static const String routeName = '/home';
+  static const String routeName = '/shared_projects';
 
   @override
   Widget build(BuildContext context) {
-    ProjectController _projectController = Get.find();
+    SharedProjectController _projectController = Get.find();
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return const MyFormDialog();
-                });
-          },
-        ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
+          currentIndex: 1,
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.folder), label: "My Projects"),
@@ -38,7 +28,7 @@ class HomeScreen extends GetView<MyDrawerController> {
                 icon: Icon(Icons.folder_shared), label: "Shared Projects"),
           ],
           onTap: (index) => {
-            if (index == 1) {_projectController.navigatoSharedFolder()}
+            if (index == 0) {_projectController.navigatoMyFolder()}
           },
         ),
         body: GetBuilder<MyDrawerController>(
@@ -91,7 +81,7 @@ class HomeScreen extends GetView<MyDrawerController> {
                               ],
                             ),
                           ),
-                          const Text('MY PROJECTS', style: kHeaderTS),
+                          const Text('SHARED PROJECTS', style: kHeaderTS),
                           const SizedBox(height: 15),
                         ],
                       ),

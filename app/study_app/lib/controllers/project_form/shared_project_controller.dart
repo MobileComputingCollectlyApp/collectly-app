@@ -1,19 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collectly/controllers/auth_controller.dart';
 import 'package:collectly/models/project_form_model.dart';
-import 'package:collectly/screens/home/shared_project_screen.dart';
 import 'package:collectly/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:uuid/uuid.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collectly/firebase/firebase_configs.dart';
 import 'package:collectly/utils/logger.dart';
 
-class ProjectController extends GetxController {
-  final formKey = GlobalKey<FormState>();
-  String? projectName;
-  String? projectDescription;
+class SharedProjectController extends GetxController {
   final AuthController _auth = Get.find();
   late User? user;
 
@@ -34,8 +28,9 @@ class ProjectController extends GetxController {
   // Get all projects created by current user
   Future<void> getAllProjects() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> data =
-          await projectFormFR.where("owner", isEqualTo: user?.email).get();
+      QuerySnapshot<Map<String, dynamic>> data = await projectFormFR
+          .where("collaborators", arrayContains: user?.email)
+          .get();
       final projectList = data.docs
           .map((project) => ProjectModel.fromSnapshot(project))
           .toList();
@@ -63,31 +58,12 @@ class ProjectController extends GetxController {
     }
   }
 
-  // Navigate to the Shared Project Folder
-  void navigatoSharedFolder() {
+  // Navigate to the My Project list
+  void navigatoMyFolder() {
     if (_auth.isLogedIn()) {
-      Get.toNamed(SharedProjectScreen.routeName);
+      Get.toNamed(HomeScreen.routeName);
     } else {
       _auth.showLoginAlertDialog();
-    }
-  }
-
-  // Upload project creation data to firestore
-  uploadData() async {
-    const uuid = Uuid();
-    String projectID = uuid.v4();
-
-    try {
-      await projectFormFR.doc(projectID).set({
-        "id": projectID,
-        "title": projectName,
-        "description": projectDescription,
-        "forms_count": 0,
-        "owner": user?.email,
-        "collaborators": [],
-      });
-    } on Exception catch (e) {
-      AppLogger.e(e);
     }
   }
 }
