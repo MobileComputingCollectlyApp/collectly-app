@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       navigatorKey: navigatorKey,
       title: 'Flutter Demo',
-      theme: Get.find<ThemeController>().getDarkTheme(),
+      theme: Get.find<ThemeController>().getLightheme(),
       darkTheme: Get.find<ThemeController>().getDarkTheme(),
       getPages: AppRoutes.pages(),
       debugShowCheckedModeBanner: false,

@@ -40,7 +40,7 @@ class FormCard extends GetView<FormController> {
                             width: 65,
                             height: 65,
                             child: Image.asset(
-                              'assets/images/splash.png',
+                              'assets/images/form.jpeg',
                             ),
                           )),
                     ),

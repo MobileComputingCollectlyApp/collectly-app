@@ -42,7 +42,7 @@ class ProjectCard extends GetView<ProjectController> {
                             width: 65,
                             height: 65,
                             child: Image.asset(
-                              'assets/images/splash.png',
+                              'assets/images/project.png',
                             ),
                           )),
                     ),

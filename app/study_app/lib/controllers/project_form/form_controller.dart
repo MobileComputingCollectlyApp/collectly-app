@@ -75,6 +75,19 @@ class FormController extends GetxController {
     }
   }
 
+  // Update visibility
+  void changeVisibility(FormModel form) async {
+    try {
+      await projectFormFR
+          .doc(project.id)
+          .collection('forms')
+          .doc(form.id)
+          .set({"isPublic": !form.isPublic}, SetOptions(merge: true));
+    } on Exception catch (e) {
+      AppLogger.e(e);
+    }
+  }
+
   // Upload form creation data to firestore
   uploadData() async {
     const uuid = Uuid();

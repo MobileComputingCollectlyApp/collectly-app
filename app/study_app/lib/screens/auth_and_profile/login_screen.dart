@@ -24,7 +24,7 @@ class LoginScreen extends GetView<AuthController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/splash.png',
+                'assets/images/splash.jpeg',
                 width: 200,
                 height: 200,
               ),

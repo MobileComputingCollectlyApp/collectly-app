@@ -1,5 +1,6 @@
 import 'package:collectly/controllers/project_form/form_data_controller.dart';
 import 'package:collectly/models/project_form_model.dart';
+import 'package:collectly/widgets/form/change_form_visibility.dart';
 import 'package:collectly/widgets/form/form_detail_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -74,7 +75,18 @@ class FormDetailsScreen extends GetView<MyDrawerController> {
             BottomNavigationBarItem(icon: Icon(Icons.delete), label: "Delete")
           ],
           onTap: (index) => {
-            if (index == 2) {_formDataContoller.navigateToFormPlayScreen()}
+            if (index == 2)
+              {_formDataContoller.navigateToFormPlayScreen()}
+            else if (index == 0)
+              {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return FormVisibityDialog(
+                        form: _formDataContoller.form,
+                      );
+                    })
+              }
           },
         ),
         body: GetBuilder<MyDrawerController>(
