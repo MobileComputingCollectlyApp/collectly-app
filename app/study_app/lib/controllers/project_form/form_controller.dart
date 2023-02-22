@@ -91,7 +91,7 @@ class FormController extends GetxController {
         element['type'] = 'text';
       }
       if (element['required'] == null) {
-        element['required'] = 'yes';
+        element['required'] = true;
       }
       count++;
     }

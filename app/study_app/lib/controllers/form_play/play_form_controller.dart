@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collectly/models/project_form_model.dart';
 import 'package:collectly/utils/logger.dart';
@@ -41,13 +43,40 @@ class PlayFormController extends GetxController {
   }
 
   void submitAnswer() async {
-    if (answer!.isEmpty) {
-      return;
-    }
+    const uuid = Uuid();
+    dataID ??= uuid.v4();
+    final id = uuid.v4();
 
-    if (dataID == null) {
-      const uuid = Uuid();
-      dataID = uuid.v4();
+    if (currentQuestion.value['type'] == 'image') {
+      File file = File(answer!);
+      final splits = answer!.split(".");
+      await firebaseStorage
+          .child("public/images/" +
+              id.toString() +
+              "." +
+              splits[splits.length - 1])
+          .putFile(file);
+      answer = id + "." + splits[splits.length - 1];
+    } else if (currentQuestion.value['type'] == 'video') {
+      File file = File(answer!);
+      final splits = answer!.split(".");
+      await firebaseStorage
+          .child("public/videos/" +
+              id.toString() +
+              "." +
+              splits[splits.length - 1])
+          .putFile(file);
+      answer = id + "." + splits[splits.length - 1];
+    } else if (currentQuestion.value['type'] == 'audio') {
+      File file = File(answer!);
+      final splits = answer!.split(".");
+      await firebaseStorage
+          .child("public/audios/" +
+              id.toString() +
+              "." +
+              splits[splits.length - 1])
+          .putFile(file);
+      answer = id + "." + splits[splits.length - 1];
     }
 
     try {
