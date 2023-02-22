@@ -1,7 +1,10 @@
+import 'package:collectly/controllers/form_play/play_form_controller.dart';
 import 'package:collectly/controllers/project_form/form_controller.dart';
+import 'package:collectly/controllers/project_form/form_data_controller.dart';
 import 'package:collectly/controllers/project_form/project_controller.dart';
 import 'package:collectly/controllers/project_form/shared_project_controller.dart';
 import 'package:collectly/screens/home/shared_project_screen.dart';
+import 'package:collectly/screens/play_form/play_form_screen.dart';
 import 'package:get/get.dart';
 import 'package:collectly/controllers/controllers.dart';
 import 'package:collectly/screens/screens.dart';
@@ -43,8 +46,14 @@ class AppRoutes {
             page: () => const FormDetailsScreen(),
             name: FormDetailsScreen.routeName,
             binding: BindingsBuilder(() {
-              Get.put(FormDetailsController());
+              Get.put(FormDataController());
               Get.put(MyDrawerController());
+            })),
+        GetPage(
+            page: () => const PlayFormScreen(),
+            name: PlayFormScreen.routeName,
+            binding: BindingsBuilder(() {
+              Get.put<PlayFormController>(PlayFormController());
             })),
         GetPage(page: () => const LoginScreen(), name: LoginScreen.routeName),
         GetPage(
@@ -63,8 +72,12 @@ class AppRoutes {
             page: () => const AnswersCheckScreen(),
             name: AnswersCheckScreen.routeName),
         GetPage(
-            page: () => const QuizOverviewScreen(),
-            name: QuizOverviewScreen.routeName),
+          page: () => const QuizOverviewScreen(),
+          name: QuizOverviewScreen.routeName,
+          binding: BindingsBuilder(() {
+            Get.put<QuizController>(QuizController());
+          }),
+        ),
         GetPage(page: () => const Resultcreen(), name: Resultcreen.routeName),
       ];
 }

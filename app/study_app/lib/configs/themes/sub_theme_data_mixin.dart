@@ -39,7 +39,7 @@ mixin SubThemeData {
     return const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         elevation: 10,
-        showSelectedLabels: false,
-        showUnselectedLabels: false);
+        showSelectedLabels: true,
+        showUnselectedLabels: true);
   }
 }

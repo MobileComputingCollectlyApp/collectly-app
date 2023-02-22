@@ -1,24 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collectly/controllers/auth_controller.dart';
-import 'package:collectly/firebase/download_status.dart';
 import 'package:collectly/models/project_form_model.dart';
 import 'package:collectly/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:collectly/firebase/firebase_configs.dart';
 import 'package:collectly/utils/logger.dart';
+import 'package:uuid/uuid.dart';
 
 class FormController extends GetxController {
   final formKey = GlobalKey<FormState>();
   String? formName;
   String? formDescription;
-  bool? isPublic;
-  Map<String, dynamic> structure = {};
+  String? questionText;
+  RxString questionType = 'text'.obs;
+  RxString required = 'yes'.obs;
+  RxString public = 'no'.obs;
+  bool isPublic = false;
+  RxInt currentStep = 0.obs;
+  List<Map<String, dynamic>> structure = [{}];
+  RxList choices = [].obs;
+  String? choice;
   final AuthController _auth = Get.find();
   late User? user;
   late ProjectModel project;
+  TextEditingController ctrl = TextEditingController();
 
   @override
   void onReady() {
@@ -52,17 +59,32 @@ class FormController extends GetxController {
   void navigatoForm({required FormModel form, bool isTryAgain = false}) {
     AuthController _authController = Get.find();
 
+    final params = {'form': form, 'project_id': project.id};
+
     if (_authController.isLogedIn()) {
       if (isTryAgain) {
         Get.back();
-        Get.offNamed(FormScreen.routeName,
-            arguments: form, preventDuplicates: false);
+        Get.offNamed(FormDetailsScreen.routeName,
+            arguments: params, preventDuplicates: false);
       } else {
-        Get.toNamed(FormScreen.routeName, arguments: form);
+        Get.toNamed(FormDetailsScreen.routeName, arguments: params);
       }
     } else {
-      Get.toNamed(FormScreen.routeName, arguments: form);
+      Get.toNamed(FormDetailsScreen.routeName, arguments: params);
       _authController.showLoginAlertDialog();
+    }
+  }
+
+  // Update visibility
+  void changeVisibility(FormModel form) async {
+    try {
+      await projectFormFR
+          .doc(project.id)
+          .collection('forms')
+          .doc(form.id)
+          .set({"isPublic": !form.isPublic}, SetOptions(merge: true));
+    } on Exception catch (e) {
+      AppLogger.e(e);
     }
   }
 
@@ -71,15 +93,31 @@ class FormController extends GetxController {
     const uuid = Uuid();
     String formID = uuid.v4();
 
+    int count = 0;
+    for (var element in structure) {
+      if (count == 0) {
+        count++;
+        continue;
+      }
+      element['id'] = count;
+      if (element['type'] == null) {
+        element['type'] = 'text';
+      }
+      if (element['required'] == null) {
+        element['required'] = true;
+      }
+      count++;
+    }
+    structure.removeAt(0);
+
     try {
       await projectFormFR.doc(project.id).collection('forms').doc(formID).set({
         "id": formID,
         "title": formName,
         "description": formDescription,
         "isPublic": isPublic,
-        "downloadable": DownloadStatus.notAvailable,
-        "structure": structure,
-        "answers": [],
+        "downloadable": 'notAvailable',
+        "structure": structure
       });
     } on Exception catch (e) {
       AppLogger.e(e);

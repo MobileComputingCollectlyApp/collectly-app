@@ -65,7 +65,7 @@ class FormModel {
   final String description;
   final bool isPublic;
   final String downloadable;
-  final Map<String, dynamic> structure;
+  final List<dynamic> structure;
   List<Answer> answers;
 
   FormModel({
@@ -84,7 +84,7 @@ class FormModel {
         description = snapshot['description'],
         isPublic = snapshot['isPublic'],
         downloadable = snapshot['downloadable'],
-        structure = snapshot['structure'],
+        structure = snapshot['structure'] as List<dynamic>,
         answers = [];
 
   FormModel.fromJson(Map<String, dynamic> json)
@@ -93,7 +93,7 @@ class FormModel {
         description = json['description'] as String,
         isPublic = json['isPublic'] as bool,
         downloadable = json['downloadable'] as String,
-        structure = json['structure'] as Map<String, dynamic>,
+        structure = json['structure'] as List<dynamic>,
         answers = json['answers'] == null
             ? []
             : (json['answers'] as List).map((e) => Answer.fromJson(e)).toList();
@@ -110,20 +110,24 @@ class FormModel {
 // Answer model for each form
 class Answer {
   final String id;
+  final String timestamp;
   final Map<String, dynamic> answers;
 
   Answer({
     required this.id,
+    required this.timestamp,
     required this.answers,
   });
 
   Answer.fromJson(Map<String, dynamic> json)
       : id = json['id'] as String,
+        timestamp = json['timestamp'] as String,
         answers = json['answers'] as Map<String, String>;
 
   Answer.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : id = snapshot['id'] as String,
+        timestamp = snapshot['timestamp'] as String,
         answers = {};
 
-  Map<String, dynamic> toJson() => {'id': id, 'answers': answers};
+  Map<String, dynamic> toJson() => {'id': id, 'timestamp': timestamp, 'answers': answers};
 }
