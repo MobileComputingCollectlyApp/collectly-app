@@ -83,6 +83,21 @@ class FormController extends GetxController {
           .collection('forms')
           .doc(form.id)
           .set({"isPublic": !form.isPublic}, SetOptions(merge: true));
+      _auth.navigateToHome();
+    } on Exception catch (e) {
+      AppLogger.e(e);
+    }
+  }
+
+  // Delete the form
+  void delete(FormModel form) async {
+    try {
+      await projectFormFR
+          .doc(project.id)
+          .collection('forms')
+          .doc(form.id)
+          .delete();
+      _auth.navigateToHome();
     } on Exception catch (e) {
       AppLogger.e(e);
     }

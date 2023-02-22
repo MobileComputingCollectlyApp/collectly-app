@@ -3,24 +3,22 @@ import 'package:collectly/models/project_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FormVisibityDialog extends GetView<FormController> {
-  const FormVisibityDialog({Key? key, required this.form}) : super(key: key);
+class DeleteFormDialog extends GetView<FormController> {
+  const DeleteFormDialog({Key? key, required this.form}) : super(key: key);
 
   final FormModel form;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Form Visibility'),
+      title: const Text('Delete Form'),
       content: Form(
         key: controller.formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            if (form.isPublic == true)
-              const Text('Do you want to make this form as Private.'),
-            if (form.isPublic == false)
-              const Text('Do you want to make this form as Public.'),
+          children: const [
+            Text(
+                'Are you sure delete this form. This will remove all your details related to this form.'),
           ],
         ),
       ),
@@ -32,9 +30,9 @@ class FormVisibityDialog extends GetView<FormController> {
           },
         ),
         TextButton(
-          child: const Text('Proceed'),
+          child: const Text('Delete'),
           onPressed: () {
-            controller.changeVisibility(form);
+            controller.delete(form);
             Navigator.of(context).pop();
           },
         ),
