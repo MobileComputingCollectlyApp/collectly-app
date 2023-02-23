@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/dilshan/Documents/Flutter/MobileComputing/collectly-app/build/google_sign_in_android/intermediates/res/merged/debug/drawable-watch-v20/common_google_signin_btn_text_disabled.xml",
+        "source": "/home/dilshan/.gradle/caches/transforms-2/files-2.1/d8ea839e48ad1d13b1498ce4aee63ed3/jetified-play-services-auth-20.4.1/res/drawable-watch-v20/common_google_signin_btn_text_disabled.xml"
+    },
+    {
+        "merged": "/home/dilshan/Documents/Flutter/MobileComputing/collectly-app/build/google_sign_in_android/intermediates/res/merged/debug/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml",
+        "source": "/home/dilshan/.gradle/caches/transforms-2/files-2.1/d8ea839e48ad1d13b1498ce4aee63ed3/jetified-play-services-auth-20.4.1/res/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml"
+    },
+    {
+        "merged": "/home/dilshan/Documents/Flutter/MobileComputing/collectly-app/build/google_sign_in_android/intermediates/res/merged/debug/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml",
+        "source": "/home/dilshan/.gradle/caches/transforms-2/files-2.1/d8ea839e48ad1d13b1498ce4aee63ed3/jetified-play-services-auth-20.4.1/res/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml"
+    }
+]
